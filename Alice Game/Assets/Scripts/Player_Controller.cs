@@ -93,13 +93,13 @@ public class Player_Controller : MonoBehaviour
     private void ChangeSize(int operationSign)
     {
         //===== TAMANHO DO PLAYER =====
-        playerBody.localScale = new Vector3(playerBody.localScale.x, playerBody.localScale.y + (0.5f * operationSign), playerBody.localScale.z);
+        playerBody.localScale = new Vector3(playerBody.localScale.x + (0.1f * operationSign), playerBody.localScale.y + (0.5f * operationSign), playerBody.localScale.z);
 
         //===== POSIÇÃO DO PLAYER =====
-        playerBody.position = new Vector3(playerBody.position.x, playerBody.position.y + (0.5f * operationSign), playerBody.position.z);
+        playerBody.position = new Vector3(playerBody.position.x + (0.1f * operationSign), playerBody.position.y + (0.5f * operationSign), playerBody.position.z);
 
         //===== POSIÇÃO DA CAMERA =====
-        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x, Camera.main.transform.position.y + (1f * operationSign), Camera.main.transform.position.z);
+        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x + (0.1f * operationSign), Camera.main.transform.position.y + (0.5f * operationSign), Camera.main.transform.position.z);
 
 
         //Tamanho do Character Controller
