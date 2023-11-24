@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Interact_System : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Interact_System : MonoBehaviour
     private LayerMask objLayer;
     private bool touchedObj = false;
     private float distanceTouch = 1.8f;
+    public Image inventoryImg;
 
     private void Start()
     {

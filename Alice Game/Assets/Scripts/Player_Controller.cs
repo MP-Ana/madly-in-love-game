@@ -7,12 +7,14 @@ public class Player_Controller : MonoBehaviour
     private float speed = 5f, gravity = -9.8f, groundDistance = 0.4f, jump = 1.5f;
     private Vector3 velocity;
 
-    [SerializeField] private Transform groundCheck, playerBody;
+    [SerializeField] private Transform groundCheck;
+    public Transform playerBody;
     private LayerMask groundMask;
 
     //Acessado por Objects_System
     [HideInInspector] public int cookies = 0, milk = 0;
     public TextMeshProUGUI milkAmount, cookieAmount;
+    [HideInInspector] public Material holdingMaterial;
 
     private void Start()
     {
@@ -67,44 +69,78 @@ public class Player_Controller : MonoBehaviour
         =========================
          */
 
-        float maxSize = 2.5f, minSize = 0.5f;
-
         if (Input.GetKeyDown(KeyCode.Q)) //Diminuir
         {
-            if (playerBody.localScale.y > minSize && milk >= 1)
+            if (milk >= 1)
             {
                 milk--;
                 milkAmount.text = "x" + milk;
-                ChangeSize(-1);
+
+                if (playerBody.localScale.y == 1)
+                {
+                    playerBody.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                    Camera.main.transform.position = new Vector3(playerBody.position.x, playerBody.position.y + 0.3f, playerBody.position.z); //aumentar altura camera
+                    controller.transform.localScale = playerBody.localScale;
+                    controller.transform.position = playerBody.transform.position;
+                    controller.height = 1;
+                    jump = 0.5f;
+                }
+                else if (playerBody.localScale.y == 1.5f)
+                {
+                    playerBody.localScale = new Vector3(1f, 1f, 1f);
+                    Camera.main.transform.position = new Vector3(playerBody.position.x, playerBody.position.y + 0.3f, playerBody.position.z); //aumentar altura camera
+                    controller.transform.localScale = playerBody.localScale;
+                    controller.transform.position = playerBody.transform.position;
+                    controller.height = 2;
+                    jump = 1.5f;
+                }
+                else if (playerBody.localScale.y == 2f)
+                {
+                    playerBody.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                    Camera.main.transform.position = new Vector3(playerBody.position.x, playerBody.position.y + 0.3f, playerBody.position.z); //aumentar altura camera
+                    controller.transform.localScale = playerBody.localScale;
+                    controller.transform.position = playerBody.transform.position;
+                    controller.height = 2f;
+                    jump = 2f;
+                }
             }
         }
 
         if (Input.GetKeyDown(KeyCode.E)) //Aumentar
         {
-            if (playerBody.localScale.y < maxSize && cookies >= 1)
+            if (cookies >= 1)
             {
                 cookies--;
                 cookieAmount.text = "x" + cookies;
-                ChangeSize(1);
+
+                if (playerBody.localScale.y == 0.5f)
+                {
+                    playerBody.localScale = new Vector3(1f, 1f, 1f);
+                    Camera.main.transform.position = new Vector3(playerBody.position.x, playerBody.position.y + 0.3f, playerBody.position.z);
+                    controller.transform.localScale = playerBody.localScale;
+                    controller.transform.position = playerBody.transform.position;
+                    controller.height = 2;
+                    jump = 1.5f;
+                }
+                else if (playerBody.localScale.y == 1f)
+                {
+                    playerBody.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                    Camera.main.transform.position = new Vector3(playerBody.position.x, playerBody.position.y + 0.6f, playerBody.position.z);
+                    controller.transform.localScale = playerBody.localScale;
+                    controller.transform.position = playerBody.transform.position;
+                    controller.height = 2f;
+                    jump = 2f;
+                }
+                else if (playerBody.localScale.y == 1.5f)
+                {
+                    playerBody.localScale = new Vector3(2f, 2f, 2f);
+                    Camera.main.transform.position = new Vector3(playerBody.position.x, playerBody.position.y + 0.6f, playerBody.position.z);
+                    controller.transform.localScale = playerBody.localScale;
+                    controller.transform.position = playerBody.transform.position;
+                    controller.height = 2f;
+                    jump = 2.5f;
+                }
             }
         }
-    }
-
-    private void ChangeSize(int operationSign)
-    {
-        //===== TAMANHO DO PLAYER =====
-        playerBody.localScale = new Vector3(playerBody.localScale.x + (0.1f * operationSign), playerBody.localScale.y + (0.5f * operationSign), playerBody.localScale.z);
-
-        //===== POSIÇÃO DO PLAYER =====
-        playerBody.position = new Vector3(playerBody.position.x + (0.1f * operationSign), playerBody.position.y + (0.5f * operationSign), playerBody.position.z);
-
-        //===== POSIÇÃO DA CAMERA =====
-        Camera.main.transform.position = new Vector3(Camera.main.transform.position.x + (0.1f * operationSign), Camera.main.transform.position.y + (0.5f * operationSign), Camera.main.transform.position.z);
-
-
-        //Tamanho do Character Controller
-        controller.transform.localScale = playerBody.localScale;
-
-        jump = jump + (1f * operationSign);
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1273362390401340968}
   - component: {fileID: 1273362390401340972}
   m_Layer: 7
-  m_Name: Cookies
+  m_Name: Cookies2
   m_TagString: Cookie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
